@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
 const dotenv = require('dotenv');
+const axios = require('axios');
 dotenv.config();
 
 const app = express();
@@ -68,6 +69,6 @@ server.listen(PORT, () => {
 
   //every 5 minutes
   setInterval(() => {
-    http.get('https://backend-simple-webrtc.herokuapp.com');
+    axios.get('https://backend-simple-webrtc.herokuapp.com');
   }, 1000 * 60 * 5);
 });
