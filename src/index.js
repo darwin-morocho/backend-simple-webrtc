@@ -19,35 +19,44 @@ let users = [];
 
 //socket io logic
 io.on('connection', socket => {
-  socket.io('join', username => {
+  socket.on('join', username => {
     let user = users.find(item => item === username);
     if (user) {
       io.to(socket.id).emit('on-join', false);
     } else {
       socket.join(username); // assign the username to the current socket
       socket.handshake.query.username = username;
+      users.push(username);
       io.to(socket.id).emit('on-join', true);
     }
   });
 
-  socket.io('call', ({ username, offer }) => {
+  socket.on('call', ({ username, offer }) => {
+    console.log('call', username);
     let user = users.find(item => item === username);
     if (user) {
-      io.to(username).emit('on-call', { username, offer });
+      const me = socket.handshake.query.username;
+      console.log('call to', username);
+      io.to(username).emit('on-call', { username: me, offer });
+    } else {
+      console.log('usuario no encontrado');
     }
   });
 
-  socket.io('answer', ({ username, answer }) => {
+  socket.on('answer', ({ username, answer }) => {
     let user = users.find(item => item === username);
     if (user) {
-      io.to(username).emit('on-answer', { username, answer });
+      console.log('answer to', username);
+      io.to(username).emit('on-answer', answer);
     }
   });
 
-  socket.io('candidate', ({ username, candidate }) => {
+  socket.on('candidate', ({ username, candidate }) => {
+    console.log('candidate', username);
     let user = users.find(item => item === username);
     if (user) {
-      io.to(username).emit('on-candidate', { username, candidate });
+      console.log('candidate to', username);
+      io.to(username).emit('on-candidate', candidate);
     }
   });
 
@@ -68,7 +77,7 @@ server.listen(PORT, () => {
   console.log('running on ' + PORT);
 
   //every 5 minutes
-  setInterval(() => {
-    axios.get('https://backend-simple-webrtc.herokuapp.com');
-  }, 1000 * 60 * 5);
+  //   setInterval(() => {
+  //     axios.get('https://backend-simple-webrtc.herokuapp.com');
+  //   }, 1000 * 60 * 5);
 });
