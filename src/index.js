@@ -8,6 +8,10 @@ const server = http.Server(app);
 
 const io = socketio(server);
 
+app.get('/', (req, res) => {
+  res.send('hello');
+});
+
 let users = [];
 
 //socket io logic
@@ -59,4 +63,9 @@ io.on('connection', socket => {
 
 server.listen(5000, () => {
   console.log('running');
+
+  // every 5 minutes
+  //   setInterval(() => {
+  //       http.get("")
+  //   }, 1000 * 60 * 5);
 });
