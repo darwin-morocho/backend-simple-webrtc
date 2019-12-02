@@ -1,6 +1,8 @@
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 
@@ -59,8 +61,10 @@ io.on('connection', socket => {
   });
 });
 
-server.listen(5050, () => {
-  console.log('running');
+const PORT = process.env.PORT;
+
+server.listen(PORT, () => {
+  console.log('running on ' + PORT);
 
   //every 5 minutes
   setInterval(() => {
