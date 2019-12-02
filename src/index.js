@@ -27,8 +27,6 @@ io.on('connection', socket => {
     }
   });
 
-  socket;
-
   socket.io('call', ({ username, offer }) => {
     let user = users.find(item => item === username);
     if (user) {
@@ -64,8 +62,8 @@ io.on('connection', socket => {
 server.listen(5000, () => {
   console.log('running');
 
-  // every 5 minutes
-  //   setInterval(() => {
-  //       http.get("")
-  //   }, 1000 * 60 * 5);
+  //every 5 minutes
+  setInterval(() => {
+    http.get('https://backend-simple-webrtc.herokuapp.com');
+  }, 1000 * 60 * 5);
 });
