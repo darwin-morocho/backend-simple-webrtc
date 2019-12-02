@@ -31,6 +31,7 @@ io.on('connection', socket => {
     }
   });
 
+  //
   socket.on('call', ({ username, offer }) => {
     console.log('call', username);
     let user = users.find(item => item === username);
@@ -77,7 +78,7 @@ server.listen(PORT, () => {
   console.log('running on ' + PORT);
 
   //every 5 minutes
-  //   setInterval(() => {
-  //     axios.get('https://backend-simple-webrtc.herokuapp.com');
-  //   }, 1000 * 60 * 5);
+  setInterval(() => {
+    axios.get('https://backend-simple-webrtc.herokuapp.com');
+  }, 1000 * 60 * 5);
 });
