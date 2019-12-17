@@ -78,7 +78,7 @@ server.listen(PORT, () => {
   console.log('running on ' + PORT);
 
   //every 5 minutes
-  setInterval(() => {
-    axios.get('https://backend-simple-webrtc.herokuapp.com');
-  }, 1000 * 60 * 5);
+  // setInterval(() => {
+  //   axios.get('https://backend-simple-webrtc.herokuapp.com');
+  // }, 1000 * 60 * 5);
 });
